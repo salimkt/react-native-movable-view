@@ -25,8 +25,8 @@ export default class MovableView extends Component {
           dy: this.state.pan.y,
         }]),
       onPanResponderRelease: (e, gestureState) => {
-        const xOffset = this.state.xOffset + gestureState.dx;
-        const yOffset = this.state.yOffset + gestureState.dy;
+        const xOffset =props.isVerticalOnly? this.state.xOffset: this.state.xOffset + gestureState.dx;
+        const yOffset =props.isHorizontalOnly? this.state.yOffset: this.state.yOffset + gestureState.dy;
         this.setState({ xOffset , yOffset });
         this.props.onDragEnd();
       }
@@ -63,10 +63,14 @@ MovableView.propTypes = {
   onDragEnd: PropTypes.func,
   onMove: PropTypes.func,
   disabled: PropTypes.bool,
+  isVerticalOnly?:PropTypes.bool,
+  isHorizontalOnly?:PropTypes.bool
 };
 
 MovableView.defaultProps = {
   onDragStart: () => {},
   onDragEnd: () => {},
   disabled: false,
+  isVerticalOnly?:false,
+  isHorizontalOnly?:false
 };
